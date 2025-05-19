@@ -1,4 +1,10 @@
 import os
+import sys
+
+# 添加项目根目录到Python路径
+base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(base_dir)
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -17,7 +23,7 @@ import time
 import copy
 from PIL import Image
 from collections import defaultdict
-from ..data.dataset import AgriculturalDiseaseDataset
+from src.data.dataset import AgriculturalDiseaseDataset
 
 def train_model(model, criterion, optimizer, scheduler, dataloaders, dataset_sizes, num_epochs=25):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

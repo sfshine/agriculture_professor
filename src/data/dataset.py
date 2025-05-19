@@ -5,6 +5,28 @@ from PIL import Image
 from collections import defaultdict
 import numpy as np
 
+# Label mapping with Chinese translations in comments
+# 0: Apple-Healthy (苹果-健康)
+# 3: Apple-Frogeye Spot (苹果-灰斑病)
+# 5: Apple-Cedar Rust Serious (苹果-雪松锈病严重)
+# 9: Corn-Healthy (玉米-健康)
+# 13: Corn-Rust Serious (玉米-锈病严重)
+# 15: Corn-Leaf Spot Serious (玉米-叶斑病严重)
+# 17: Grape-Healthy (葡萄-健康)
+# 21: Grape-Black Measles Serious (葡萄-轮斑病严重)
+# 23: Grape-Leaf Blight Serious (葡萄-褐斑病严重)
+LABEL_MAP = {
+    0: "Apple-Healthy",
+    3: "Apple-Frogeye Spot",
+    5: "Apple-Cedar Rust Serious",
+    9: "Corn-Healthy",
+    13: "Corn-Rust Serious",
+    15: "Corn-Leaf Spot Serious",
+    17: "Grape-Healthy",
+    21: "Grape-Black Measles Serious",
+    23: "Grape-Leaf Blight Serious",
+}
+
 class AgriculturalDiseaseDataset(Dataset):
     def __init__(self, txt_file, root_dir, transform=None, label_map=None, sample_ratio=None):
         """

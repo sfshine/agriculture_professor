@@ -1,4 +1,10 @@
 import os
+import sys
+
+# 添加项目根目录到Python路径
+base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(base_dir)
+
 import torch
 import torch.nn as nn
 from torchvision import models, transforms
@@ -10,29 +16,7 @@ import numpy as np
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, recall_score, f1_score
 from PIL import Image
 from collections import defaultdict
-from ..data.dataset import AgriculturalDiseaseDataset
-
-# Label mapping with Chinese translations in comments
-# 0: Apple-Healthy (苹果-健康)
-# 3: Apple-Frogeye Spot (苹果-灰斑病)
-# 5: Apple-Cedar Rust Serious (苹果-雪松锈病严重)
-# 9: Corn-Healthy (玉米-健康)
-# 13: Corn-Rust Serious (玉米-锈病严重)
-# 15: Corn-Leaf Spot Serious (玉米-叶斑病严重)
-# 17: Grape-Healthy (葡萄-健康)
-# 21: Grape-Black Measles Serious (葡萄-轮斑病严重)
-# 23: Grape-Leaf Blight Serious (葡萄-褐斑病严重)
-LABEL_MAP = {
-    0: "Apple-Healthy",
-    3: "Apple-Frogeye Spot",
-    5: "Apple-Cedar Rust Serious",
-    9: "Corn-Healthy",
-    13: "Corn-Rust Serious",
-    15: "Corn-Leaf Spot Serious",
-    17: "Grape-Healthy",
-    21: "Grape-Black Measles Serious",
-    23: "Grape-Leaf Blight Serious",
-}
+from src.data.dataset import AgriculturalDiseaseDataset, LABEL_MAP
 
 # 设置matplotlib支持中文显示
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']  # 对于 macOS

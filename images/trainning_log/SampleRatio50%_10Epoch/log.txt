@@ -1,0 +1,105 @@
+(global_venv) (base) ➜  models git:(main) ✗ py train_model.py
+Loading training dataset...
+Created label mapping: {'0': 0, '13': 1, '15': 2, '17': 3, '21': 4, '23': 5, '3': 6, '5': 7, '9': 8}
+Loading validation dataset...
+Created label mapping: {'0': 0, '13': 1, '15': 2, '17': 3, '21': 4, '23': 5, '3': 6, '5': 7, '9': 8}
+Training set size: 2100
+Validation set size: 602
+Number of classes after mapping: 9
+Initializing model...
+Starting model training...
+Using device: cpu
+Epoch 1/10
+----------
+train Loss: 1.7593 Acc: 0.3767 Time: 431.80s
+val Loss: 1.2918 Acc: 0.7442 Time: 87.85s
+Epoch 1 completed in 519.69s
+
+Epoch 2/10
+----------
+train Loss: 0.9378 Acc: 0.7867 Time: 417.68s
+val Loss: 0.4625 Acc: 0.9435 Time: 88.26s
+Epoch 2 completed in 505.98s
+
+Epoch 3/10
+----------
+train Loss: 0.5085 Acc: 0.8852 Time: 417.02s
+val Loss: 0.2129 Acc: 0.9784 Time: 88.39s
+Epoch 3 completed in 505.54s
+
+Epoch 4/10
+----------
+train Loss: 0.3353 Acc: 0.9195 Time: 417.79s
+val Loss: 0.1307 Acc: 0.9817 Time: 88.64s
+Epoch 4 completed in 506.47s
+
+Epoch 5/10
+----------
+train Loss: 0.2478 Acc: 0.9362 Time: 422.44s
+val Loss: 0.0963 Acc: 0.9850 Time: 88.92s
+Epoch 5 completed in 511.39s
+
+Epoch 6/10
+----------
+train Loss: 0.2152 Acc: 0.9419 Time: 420.16s
+val Loss: 0.0768 Acc: 0.9850 Time: 89.12s
+Epoch 6 completed in 509.29s
+
+Epoch 7/10
+----------
+train Loss: 0.1846 Acc: 0.9471 Time: 421.66s
+val Loss: 0.0631 Acc: 0.9867 Time: 89.32s
+Epoch 7 completed in 511.02s
+
+Epoch 8/10
+----------
+train Loss: 0.1629 Acc: 0.9514 Time: 421.67s
+val Loss: 0.0660 Acc: 0.9867 Time: 89.14s
+Epoch 8 completed in 510.81s
+
+Epoch 9/10
+----------
+train Loss: 0.1534 Acc: 0.9552 Time: 420.99s
+val Loss: 0.0586 Acc: 0.9867 Time: 89.24s
+Epoch 9 completed in 510.23s
+
+Epoch 10/10
+----------
+train Loss: 0.1499 Acc: 0.9600 Time: 421.13s
+val Loss: 0.0576 Acc: 0.9867 Time: 89.16s
+Epoch 10 completed in 510.29s
+
+Training complete in 85m 1s
+Best val Acc: 0.9867
+2025-05-20 01:08:04.773 python3[88221:1863710] +[IMKClient subclass]: chose IMKClient_Modern
+2025-05-20 01:08:04.773 python3[88221:1863710] +[IMKInputSession subclass]: chose IMKInputSession_Modern
+Saving model...
+
+Evaluating model on validation set:
+/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+Classification Report:
+              precision    recall  f1-score     support
+0              1.000000  1.000000  1.000000  169.000000
+1              0.962264  1.000000  0.980769   51.000000
+2              0.985507  0.971429  0.978417   70.000000
+3              0.976744  1.000000  0.988235   42.000000
+4              0.967213  1.000000  0.983333   59.000000
+5              0.989011  1.000000  0.994475   90.000000
+6              0.983871  1.000000  0.991870   61.000000
+7              0.000000  0.000000  0.000000    6.000000
+8              1.000000  1.000000  1.000000   54.000000
+accuracy       0.986711  0.986711  0.986711    0.986711
+macro avg      0.873846  0.885714  0.879678  602.000000
+weighted avg   0.977038  0.986711  0.981790  602.000000
+/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+Accuracy: 0.9867
+Precision: 0.9770
+Recall: 0.9867
+F1 Score: 0.9818
+Final Validation Accuracy: 0.9867

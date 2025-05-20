@@ -230,7 +230,7 @@ def main():
             txt_file=os.path.join(train_dir, 'train_list.txt'),
             root_dir=os.path.dirname(train_dir),
             transform=data_transforms['train'],
-            sample_ratio=0.1  # 使用10%的数据
+            sample_ratio=0.1
         )
         
         print("Loading validation dataset...")
@@ -280,6 +280,7 @@ def main():
             exp_lr_scheduler,
             dataloaders, 
             dataset_sizes, 
+
             num_epochs=25
         )
         

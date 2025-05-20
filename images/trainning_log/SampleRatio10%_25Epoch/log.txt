@@ -1,0 +1,225 @@
+(global_venv) (base) ➜  agriculture_professor git:(main) ✗ py src/models/train_model.py 
+Loading training dataset...
+Loaded 426 images with valid labels from /Users/gaoshuai/Desktop/AI 课程设- Agriculture Detection/Challenge 2018/agriculture_professor/AgriculturalDisease_trainingset/train_list.txt
+Class distribution:
+Apple-Healthy: 118 images
+Apple-Frogeye Spot: 42 images
+Apple-Cedar Rust: 14 images
+Corn-Healthy: 37 images
+Corn-Rust: 35 images
+Corn-Leaf Spot: 48 images
+Grape-Healthy: 29 images
+Grape-Black Measles: 41 images
+Grape-Leaf Blight: 62 images
+Loading validation dataset...
+Loaded 616 images with valid labels from /Users/gaoshuai/Desktop/AI 课程设- Agriculture Detection/Challenge 2018/agriculture_professor/AgriculturalDisease_validationset/ttest_list.txt
+Class distribution:
+Apple-Healthy: 169 images
+Apple-Frogeye Spot: 61 images
+Apple-Cedar Rust: 20 images
+Corn-Healthy: 54 images
+Corn-Rust: 51 images
+Corn-Leaf Spot: 70 images
+Grape-Healthy: 42 images
+Grape-Black Measles: 59 images
+Grape-Leaf Blight: 90 images
+Training set size: 426
+Validation set size: 616
+Training with 9 classes from LABEL_MAP
+Classes:
+  0: Apple-Healthy
+  3: Apple-Frogeye Spot
+  4: Apple-Cedar Rust
+  9: Corn-Healthy
+  13: Corn-Rust
+  15: Corn-Leaf Spot
+  17: Grape-Healthy
+  21: Grape-Black Measles
+  23: Grape-Leaf Blight
+Initializing model...
+Starting model training...
+Using device: cpu
+Epoch 1/25
+----------
+train Loss: 2.1734 Acc: 0.1714 Time: 102.66s
+val Loss: 2.0756 Acc: 0.3068 Time: 88.81s
+Epoch 1 completed in 191.52s
+
+Epoch 2/25
+----------
+train Loss: 1.9437 Acc: 0.2770 Time: 100.90s
+val Loss: 1.8778 Acc: 0.2825 Time: 90.77s
+Epoch 2 completed in 191.67s
+
+Epoch 3/25
+----------
+train Loss: 1.7676 Acc: 0.3052 Time: 107.95s
+val Loss: 1.6909 Acc: 0.3669 Time: 89.54s
+Epoch 3 completed in 197.54s
+
+Epoch 4/25
+----------
+train Loss: 1.5936 Acc: 0.4484 Time: 101.71s
+val Loss: 1.5286 Acc: 0.6315 Time: 89.06s
+Epoch 4 completed in 190.92s
+
+Epoch 5/25
+----------
+train Loss: 1.4431 Acc: 0.5986 Time: 101.16s
+val Loss: 1.3187 Acc: 0.7679 Time: 89.24s
+Epoch 5 completed in 190.43s
+
+Epoch 6/25
+----------
+train Loss: 1.2572 Acc: 0.6808 Time: 100.95s
+val Loss: 1.1365 Acc: 0.8539 Time: 89.19s
+Epoch 6 completed in 190.17s
+
+Epoch 7/25
+----------
+train Loss: 1.0829 Acc: 0.7653 Time: 101.18s
+val Loss: 0.9052 Acc: 0.8734 Time: 89.32s
+Epoch 7 completed in 190.53s
+
+Epoch 8/25
+----------
+train Loss: 0.9867 Acc: 0.7887 Time: 101.11s
+val Loss: 0.9070 Acc: 0.8864 Time: 89.14s
+Epoch 8 completed in 190.29s
+
+Epoch 9/25
+----------
+train Loss: 0.9524 Acc: 0.7887 Time: 100.99s
+val Loss: 0.8845 Acc: 0.8945 Time: 89.33s
+Epoch 9 completed in 190.36s
+
+Epoch 10/25
+----------
+train Loss: 0.9450 Acc: 0.8122 Time: 100.82s
+val Loss: 0.8443 Acc: 0.8864 Time: 89.40s
+Epoch 10 completed in 190.23s
+
+Epoch 11/25
+----------
+train Loss: 0.9285 Acc: 0.8146 Time: 101.02s
+val Loss: 0.8200 Acc: 0.8945 Time: 89.46s
+Epoch 11 completed in 190.48s
+
+Epoch 12/25
+----------
+train Loss: 0.9225 Acc: 0.8075 Time: 101.23s
+val Loss: 0.8044 Acc: 0.8880 Time: 89.55s
+Epoch 12 completed in 190.79s
+
+Epoch 13/25
+----------
+train Loss: 0.8914 Acc: 0.8122 Time: 100.96s
+val Loss: 0.8143 Acc: 0.9075 Time: 89.30s
+Epoch 13 completed in 190.29s
+
+Epoch 14/25
+----------
+train Loss: 0.8952 Acc: 0.8005 Time: 101.47s
+val Loss: 0.7964 Acc: 0.9042 Time: 89.80s
+Epoch 14 completed in 191.27s
+
+Epoch 15/25
+----------
+train Loss: 0.8528 Acc: 0.8357 Time: 102.48s
+val Loss: 0.7796 Acc: 0.9026 Time: 89.48s
+Epoch 15 completed in 191.96s
+
+Epoch 16/25
+----------
+train Loss: 0.8794 Acc: 0.8099 Time: 101.33s
+val Loss: 0.7828 Acc: 0.9026 Time: 89.81s
+Epoch 16 completed in 191.14s
+
+Epoch 17/25
+----------
+train Loss: 0.9011 Acc: 0.8169 Time: 101.88s
+val Loss: 0.7851 Acc: 0.9010 Time: 89.52s
+Epoch 17 completed in 191.40s
+
+Epoch 18/25
+----------
+train Loss: 0.8838 Acc: 0.8052 Time: 101.54s
+val Loss: 0.7805 Acc: 0.9042 Time: 89.65s
+Epoch 18 completed in 191.20s
+
+Epoch 19/25
+----------
+train Loss: 0.8611 Acc: 0.8333 Time: 101.34s
+val Loss: 0.7770 Acc: 0.9091 Time: 89.40s
+Epoch 19 completed in 190.78s
+
+Epoch 20/25
+----------
+train Loss: 0.8609 Acc: 0.8451 Time: 101.08s
+val Loss: 0.7734 Acc: 0.9026 Time: 89.38s
+Epoch 20 completed in 190.46s
+
+Epoch 21/25
+----------
+train Loss: 0.8836 Acc: 0.8122 Time: 102.02s
+val Loss: 0.7829 Acc: 0.9075 Time: 89.80s
+Epoch 21 completed in 191.81s
+
+Epoch 22/25
+----------
+train Loss: 0.8849 Acc: 0.8099 Time: 105.05s
+val Loss: 0.7742 Acc: 0.9010 Time: 93.04s
+Epoch 22 completed in 198.10s
+
+Epoch 23/25
+----------
+train Loss: 0.8526 Acc: 0.8263 Time: 106.46s
+val Loss: 0.7809 Acc: 0.9010 Time: 88.73s
+Epoch 23 completed in 195.19s
+
+Epoch 24/25
+----------
+train Loss: 0.8631 Acc: 0.8263 Time: 101.76s
+val Loss: 0.7784 Acc: 0.9042 Time: 91.68s
+Epoch 24 completed in 193.44s
+
+Epoch 25/25
+----------
+train Loss: 0.8461 Acc: 0.8427 Time: 107.60s
+val Loss: 0.7942 Acc: 0.9091 Time: 92.22s
+Epoch 25 completed in 199.82s
+
+Training complete in 80m 2s
+Best val Acc: 0.9091
+2025-05-21 00:13:27.189 python3[10986:116728] +[IMKClient subclass]: chose IMKClient_Modern
+2025-05-21 00:13:27.189 python3[10986:116728] +[IMKInputSession subclass]: chose IMKInputSession_Modern
+Saving model...
+
+Evaluating model on validation set:
+/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+Classification Report:
+                     precision    recall  f1-score     support
+Apple-Healthy         0.884817  1.000000  0.938889  169.000000
+Apple-Frogeye Spot    0.836364  0.754098  0.793103   61.000000
+Apple-Cedar Rust      0.000000  0.000000  0.000000   20.000000
+Corn-Healthy          1.000000  1.000000  1.000000   54.000000
+Corn-Rust             0.920000  0.901961  0.910891   51.000000
+Corn-Leaf Spot        0.929577  0.942857  0.936170   70.000000
+Grape-Healthy         0.968750  0.738095  0.837838   42.000000
+Grape-Black Measles   0.907692  1.000000  0.951613   59.000000
+Grape-Leaf Blight     0.908163  0.988889  0.946809   90.000000
+accuracy              0.909091  0.909091  0.909091    0.909091
+macro avg             0.817263  0.813989  0.812813  616.000000
+weighted avg          0.880712  0.909091  0.892185  616.000000
+/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+Accuracy: 0.9091
+Precision: 0.8807
+Recall: 0.9091
+F1 Score: 0.8922
+Final Validation Accuracy: 0.9091

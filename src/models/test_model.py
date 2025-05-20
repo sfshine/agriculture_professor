@@ -57,11 +57,11 @@ def evaluate_model(model, dataloader, criterion):
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_names, yticklabels=label_names)
     plt.xlabel('Predicted Labels', fontsize=12)
     plt.ylabel('True Labels', fontsize=12)
-    plt.title('Confusion Matrix', fontsize=14)
+    plt.title('Confusion Matrix (Epochs: 25, Sample Ratio: 0.1)', fontsize=14)
     plt.xticks(rotation=45, ha='right', fontsize=10)
     plt.yticks(rotation=0, fontsize=10)
     plt.tight_layout()
-    plt.savefig('confusion_matrix.png', dpi=300, bbox_inches='tight')
+    plt.savefig('confusion_matrix_epochs_25_ratio_0.1.png', dpi=300, bbox_inches='tight')
     plt.show()
     
     # 计算评估指标

@@ -1,7 +1,7 @@
 from collections import Counter
 import os
 # Import LABEL_MAP from dataset.py
-from dataset import LABEL_MAP
+from .dataset import LABEL_MAP
 
 def analyze_labels(file_path):
     labels = []

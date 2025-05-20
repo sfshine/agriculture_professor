@@ -7,7 +7,7 @@ sys.path.append(base_dir)
 
 # Configuration parameters
 num_epochs = 2
-sample_ratio = 0.05
+sample_ratio = 0.1
 
 import numpy as np
 import pandas as pd
@@ -128,7 +128,7 @@ def train_model(model, criterion, optimizer, scheduler, dataloaders, dataset_siz
     plt.subplot(1, 2, 1)
     plt.plot(train_losses, label='Training Loss')
     plt.plot(val_losses, label='Validation Loss')
-    plt.title('Loss Over Epochs')
+    plt.title('Loss Over Epochs (Epochs: {}, Sample Ratio: {})'.format(num_epochs, sample_ratio))
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.legend()
@@ -136,13 +136,13 @@ def train_model(model, criterion, optimizer, scheduler, dataloaders, dataset_siz
     plt.subplot(1, 2, 2)
     plt.plot(train_accuracies, label='Training Accuracy')
     plt.plot(val_accuracies, label='Validation Accuracy')
-    plt.title('Accuracy Over Epochs')
+    plt.title('Accuracy Over Epochs (Epochs: {}, Sample Ratio: {})'.format(num_epochs, sample_ratio))
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.legend()
     
     plt.tight_layout()
-    plt.savefig('training_metrics.png')
+    plt.savefig('training_metrics_epochs_{}_ratio_{}.png'.format(num_epochs, sample_ratio))
     plt.show()
     
     return model

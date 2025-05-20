@@ -8,7 +8,7 @@ import numpy as np
 # Label mapping with Chinese translations in comments
 # 0: Apple-Healthy (苹果-健康)
 # 3: Apple-Frogeye Spot (苹果-灰斑病)
-# 5: Apple-Cedar Rust Serious (苹果-雪松锈病严重)
+# 4: Apple-Cedar Rust Serious (苹果-雪松锈病严重)
 # 9: Corn-Healthy (玉米-健康)
 # 13: Corn-Rust Serious (玉米-锈病严重)
 # 15: Corn-Leaf Spot Serious (玉米-叶斑病严重)
@@ -18,47 +18,32 @@ import numpy as np
 LABEL_MAP = {
     0: "Apple-Healthy",
     3: "Apple-Frogeye Spot",
-    5: "Apple-Cedar Rust Serious",
+    4: "Apple-Cedar Rust",
     9: "Corn-Healthy",
-    13: "Corn-Rust Serious",
-    15: "Corn-Leaf Spot Serious",
+    13: "Corn-Rust",
+    15: "Corn-Leaf Spot",
     17: "Grape-Healthy",
-    21: "Grape-Black Measles Serious",
-    23: "Grape-Leaf Blight Serious",
+    21: "Grape-Black Measles",
+    23: "Grape-Leaf Blight",
 }
 
 class AgriculturalDiseaseDataset(Dataset):
-    def __init__(self, txt_file, root_dir, transform=None, label_map=None, sample_ratio=None):
+    def __init__(self, txt_file, root_dir, transform=None, label_map=LABEL_MAP, sample_ratio=None):
         """
         Args:
             txt_file (string): Path to the txt file with annotations.
             root_dir (string): Directory with all the images.
             transform (callable, optional): Optional transform to be applied on a sample.
-            label_map (dict, optional): Optional mapping from original labels to new labels.
+            label_map (dict, optional): Mapping from original labels to new labels.
             sample_ratio (float, optional): If provided, randomly sample this ratio of data from each class.
         """
         self.annotations = []
         self.root_dir = root_dir
         self.transform = transform
+        self.label_map = label_map
         
-        if label_map is None:
-            # Create label mapping if not provided
-            unique_labels = set()
-            with open(txt_file, 'r', encoding='utf-8') as f:
-                for line in f:
-                    line = line.strip()
-                    if line:
-                        try:
-                            _, label = line.split()
-                            unique_labels.add(label)
-                        except ValueError:
-                            print(f"Warning: Skipping invalid line format: {line}")
-                            continue
-            
-            self.label_map = {old_label: new_label for new_label, old_label in enumerate(sorted(unique_labels))}
-            print(f"Created label mapping: {self.label_map}")
-        else:
-            self.label_map = label_map
+        # Create reverse mapping from original labels to mapped labels
+        self.reverse_label_map = {str(k): str(k) for k in self.label_map.keys()}
         
         # Load data with optional sampling
         if sample_ratio is not None:
@@ -69,9 +54,11 @@ class AgriculturalDiseaseDataset(Dataset):
                     if line:
                         try:
                             img_path, label = line.split()
-                            img_path = img_path.replace('\\', os.sep)
-                            mapped_label = self.label_map[label]
-                            class_samples[mapped_label].append((img_path, mapped_label))
+                            # Only include images with labels in our label_map
+                            if label in self.reverse_label_map:
+                                img_path = img_path.replace('\\', os.sep)
+                                mapped_label = int(self.reverse_label_map[label])
+                                class_samples[mapped_label].append((img_path, mapped_label))
                         except (ValueError, KeyError) as e:
                             print(f"Warning: Skipping line due to {str(e)}: {line}")
                             continue
@@ -89,12 +76,23 @@ class AgriculturalDiseaseDataset(Dataset):
                     if line:
                         try:
                             img_path, label = line.split()
-                            img_path = img_path.replace('\\', os.sep)
-                            mapped_label = self.label_map[label]
-                            self.annotations.append((img_path, mapped_label))
+                            # Only include images with labels in our label_map
+                            if label in self.reverse_label_map:
+                                img_path = img_path.replace('\\', os.sep)
+                                mapped_label = int(self.reverse_label_map[label])
+                                self.annotations.append((img_path, mapped_label))
                         except (ValueError, KeyError) as e:
                             print(f"Warning: Skipping line due to {str(e)}: {line}")
                             continue
+                            
+        print(f"Loaded {len(self.annotations)} images with valid labels from {txt_file}")
+        # Print class distribution
+        class_dist = defaultdict(int)
+        for _, label in self.annotations:
+            class_dist[label] += 1
+        print("Class distribution:")
+        for label, count in sorted(class_dist.items()):
+            print(f"{self.label_map[label]}: {count} images")
 
     def __len__(self):
         return len(self.annotations)

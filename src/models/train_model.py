@@ -5,6 +5,10 @@ import sys
 base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(base_dir)
 
+# Configuration parameters
+num_epochs = 2
+sample_ratio = 0.05
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -23,7 +27,8 @@ import time
 import copy
 from PIL import Image
 from collections import defaultdict
-from src.data.dataset import AgriculturalDiseaseDataset
+from src.data.dataset import AgriculturalDiseaseDataset, LABEL_MAP
+from src.models.test_model import evaluate_model
 
 def train_model(model, criterion, optimizer, scheduler, dataloaders, dataset_sizes, num_epochs=25):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -40,6 +45,9 @@ def train_model(model, criterion, optimizer, scheduler, dataloaders, dataset_siz
     val_losses = []
     train_accuracies = []
     val_accuracies = []
+    
+    # Create a mapping from original labels to continuous indices (0 to num_classes-1)
+    label_to_index = {label: idx for idx, label in enumerate(sorted(LABEL_MAP.keys()))}
     
     for epoch in range(num_epochs):
         epoch_start_time = time.time()
@@ -60,7 +68,8 @@ def train_model(model, criterion, optimizer, scheduler, dataloaders, dataset_siz
             # Iterate over data
             for inputs, labels in dataloaders[phase]:
                 inputs = inputs.to(device)
-                labels = labels.to(device)
+                # Remap labels to continuous range
+                labels = torch.tensor([label_to_index[label.item()] for label in labels]).to(device)
                 
                 # Zero the parameter gradients
                 optimizer.zero_grad()
@@ -138,58 +147,6 @@ def train_model(model, criterion, optimizer, scheduler, dataloaders, dataset_siz
     
     return model
 
-def evaluate_model(model, dataloader, criterion):
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model.eval()
-    
-    running_loss = 0.0
-    all_labels = []
-    all_preds = []
-    
-    with torch.no_grad():
-        for inputs, labels in dataloader:
-            inputs = inputs.to(device)
-            labels = labels.to(device)
-            
-            outputs = model(inputs)
-            _, preds = torch.max(outputs, 1)
-            loss = criterion(outputs, labels)
-            
-            running_loss += loss.item() * inputs.size(0)
-            
-            all_labels.extend(labels.cpu().numpy())
-            all_preds.extend(preds.cpu().numpy())
-    
-    # Calculate metrics
-    cm = confusion_matrix(all_labels, all_preds)
-    
-    # Plot confusion matrix
-    plt.figure(figsize=(15, 12))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.xlabel('Predicted Labels')
-    plt.ylabel('True Labels')
-    plt.title('Confusion Matrix')
-    plt.savefig('confusion_matrix.png')
-    plt.show()
-    
-    # Print classification report
-    report = classification_report(all_labels, all_preds, output_dict=True)
-    df_report = pd.DataFrame(report).transpose()
-    print(f'Classification Report:\n{df_report}')
-    
-    # Calculate overall metrics
-    accuracy = accuracy_score(all_labels, all_preds)
-    precision = precision_score(all_labels, all_preds, average='weighted')
-    recall = recall_score(all_labels, all_preds, average='weighted')
-    f1 = f1_score(all_labels, all_preds, average='weighted')
-    
-    print(f'Accuracy: {accuracy:.4f}')
-    print(f'Precision: {precision:.4f}')
-    print(f'Recall: {recall:.4f}')
-    print(f'F1 Score: {f1:.4f}')
-    
-    return accuracy, all_labels, all_preds
-
 def main():
     try:
         # Get the project root directory (two levels up from this file)
@@ -204,6 +161,7 @@ def main():
             raise FileNotFoundError(f"Training directory not found: {train_dir}")
         if not os.path.exists(val_dir):
             raise FileNotFoundError(f"Validation directory not found: {val_dir}")
+        
         
         # Data transformation
         data_transforms = {
@@ -224,13 +182,13 @@ def main():
             ]),
         }
         
-        # Create datasets with 10% sampling for training set
+        # Create datasets with specified sampling ratio for training set
         print("Loading training dataset...")
         train_dataset = AgriculturalDiseaseDataset(
             txt_file=os.path.join(train_dir, 'train_list.txt'),
             root_dir=os.path.dirname(train_dir),
             transform=data_transforms['train'],
-            sample_ratio=0.1
+            sample_ratio=sample_ratio
         )
         
         print("Loading validation dataset...")
@@ -254,9 +212,12 @@ def main():
         print(f"Training set size: {dataset_sizes['train']}")
         print(f"Validation set size: {dataset_sizes['val']}")
         
-        # 获取映射后的类别数量
-        num_classes = len(train_dataset.label_map)
-        print(f"Number of classes after mapping: {num_classes}")
+        # 使用预定义的LABEL_MAP中的类别数量
+        num_classes = len(LABEL_MAP)
+        print(f"Training with {num_classes} classes from LABEL_MAP")
+        print("Classes:")
+        for label_id, label_name in LABEL_MAP.items():
+            print(f"  {label_id}: {label_name}")
         
         # Initialize the model (ResNet50 with pretrained weights)
         print("Initializing model...")
@@ -280,16 +241,19 @@ def main():
             exp_lr_scheduler,
             dataloaders, 
             dataset_sizes, 
-
-            num_epochs=25
+            num_epochs=num_epochs
         )
         
-        # Save the trained model
+        # Save the trained model with the label mapping
         print("Saving model...")
+        label_to_index = {label: idx for idx, label in enumerate(sorted(LABEL_MAP.keys()))}
+        index_to_label = {idx: label for label, idx in label_to_index.items()}
         torch.save({
             'model_state_dict': trained_model.state_dict(),
-            'label_map': train_dataset.label_map,
-            'num_classes': num_classes
+            'label_map': LABEL_MAP,
+            'num_classes': num_classes,
+            'label_to_index': label_to_index,
+            'index_to_label': index_to_label
         }, 'agricultural_disease_model.pth')
         
         # Evaluate the model on the validation set

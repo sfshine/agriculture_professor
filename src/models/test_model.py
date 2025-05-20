@@ -29,29 +29,32 @@ def evaluate_model(model, dataloader, criterion):
     all_labels = []
     all_preds = []
     
-    # Create reverse mapping
-    reverse_label_map = {v: k for k, v in dataloader.dataset.label_map.items()}
+    # Get label mapping from the model checkpoint if available
+    checkpoint = torch.load(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'agricultural_disease_model.pth'), map_location='cpu')
+    label_to_index = checkpoint.get('label_to_index', {label: idx for idx, label in enumerate(sorted(LABEL_MAP.keys()))})
+    index_to_label = checkpoint.get('index_to_label', {idx: label for label, idx in label_to_index.items()})
     
     with torch.no_grad():
         for inputs, labels in dataloader:
             inputs = inputs.to(device)
-            labels = labels.to(device)
+            # Remap labels to continuous range
+            labels_remapped = torch.tensor([label_to_index[label.item()] for label in labels]).to(device)
             outputs = model(inputs)
             _, preds = torch.max(outputs, 1)
-            loss = criterion(outputs, labels)
+            loss = criterion(outputs, labels_remapped)
             running_loss += loss.item() * inputs.size(0)
-            all_labels.extend(labels.cpu().numpy())
-            all_preds.extend(preds.cpu().numpy())
-    
-    # Map predictions and true labels back to original labels
-    original_labels = [reverse_label_map[label] for label in all_labels]
-    original_preds = [reverse_label_map[pred] for pred in all_preds]
-    
-    cm = confusion_matrix(original_labels, original_preds)
+            all_labels.extend(labels.cpu().numpy())  # Store original labels for reporting
+            all_preds.extend(preds.cpu().numpy())    # Store predicted indices
+            
+    # 直接使用LABEL_MAP中的标签
+    cm = confusion_matrix(all_labels, [index_to_label[pred] for pred in all_preds])
     plt.figure(figsize=(15, 12))
-    # Get English labels for display
-    labels = [LABEL_MAP.get(int(i), f"Class {i}") for i in sorted(set(original_labels))]
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=labels, yticklabels=labels)
+    
+    # 获取标签名称
+    unique_labels = sorted(set(all_labels))
+    label_names = [LABEL_MAP[i] for i in unique_labels]
+    
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_names, yticklabels=label_names)
     plt.xlabel('Predicted Labels', fontsize=12)
     plt.ylabel('True Labels', fontsize=12)
     plt.title('Confusion Matrix', fontsize=14)
@@ -61,23 +64,24 @@ def evaluate_model(model, dataloader, criterion):
     plt.savefig('confusion_matrix.png', dpi=300, bbox_inches='tight')
     plt.show()
     
-    # Calculate metrics using original labels
-    report = classification_report(original_labels, original_preds, output_dict=True)
+    # 计算评估指标
+    report = classification_report(all_labels, [index_to_label[pred] for pred in all_preds], output_dict=True)
     df_report = pd.DataFrame(report).transpose()
+    # 将数字标签转换为可读的标签名称
     df_report.index = [LABEL_MAP.get(int(i), i) if i.isdigit() else i for i in df_report.index]
     print(f'Classification Report:\n{df_report}')
     
-    accuracy = accuracy_score(original_labels, original_preds)
-    precision = precision_score(original_labels, original_preds, average='weighted')
-    recall = recall_score(original_labels, original_preds, average='weighted')
-    f1 = f1_score(original_labels, original_preds, average='weighted')
+    accuracy = accuracy_score(all_labels, [index_to_label[pred] for pred in all_preds])
+    precision = precision_score(all_labels, [index_to_label[pred] for pred in all_preds], average='weighted')
+    recall = recall_score(all_labels, [index_to_label[pred] for pred in all_preds], average='weighted')
+    f1 = f1_score(all_labels, [index_to_label[pred] for pred in all_preds], average='weighted')
     
     print(f'Accuracy: {accuracy:.4f}')
     print(f'Precision: {precision:.4f}')
     print(f'Recall: {recall:.4f}')
     print(f'F1 Score: {f1:.4f}')
     
-    return accuracy, original_labels, original_preds
+    return accuracy, all_labels, all_preds
 
 def main():
     try:

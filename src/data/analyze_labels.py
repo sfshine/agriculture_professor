@@ -1,5 +1,7 @@
 from collections import Counter
 import os
+# Import LABEL_MAP from dataset.py
+from dataset import LABEL_MAP
 
 def analyze_labels(file_path):
     labels = []
@@ -16,9 +18,12 @@ def analyze_labels(file_path):
     print(f"\n分析文件: {os.path.basename(file_path)}")
     print(f"总样本数: {len(labels)}")
     print(f"不同标签数量: {len(label_counts)}")
-    print("\n标签分布:")
+    print("\n标签分布 (仅显示在LABEL_MAP中的标签):")
     for label, count in sorted(label_counts.items(), key=lambda x: int(x[0])):
-        print(f"标签 {label}: {count} 个样本")
+        # Only display labels that exist in LABEL_MAP
+        if int(label) in LABEL_MAP:
+            label_display = LABEL_MAP[int(label)]
+            print(f"{label_display}: {count} 个样本")
 
 def main():
     # 分析训练集

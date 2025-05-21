@@ -22,7 +22,7 @@ from src.data.dataset import AgriculturalDiseaseDataset, LABEL_MAP
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']  # 对于 macOS
 plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
 
-def evaluate_model(model, dataloader, criterion):
+def evaluate_model(model, dataloader, criterion, num_epochs=25, sample_ratio=0.1):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.eval()
     running_loss = 0.0
@@ -57,11 +57,11 @@ def evaluate_model(model, dataloader, criterion):
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_names, yticklabels=label_names)
     plt.xlabel('Predicted Labels', fontsize=12)
     plt.ylabel('True Labels', fontsize=12)
-    plt.title('Confusion Matrix (Epochs: 25, Sample Ratio: 0.1)', fontsize=14)
+    plt.title(f'Confusion Matrix (Epochs: {num_epochs}, Sample Ratio: {sample_ratio})', fontsize=14)
     plt.xticks(rotation=45, ha='right', fontsize=10)
     plt.yticks(rotation=0, fontsize=10)
     plt.tight_layout()
-    plt.savefig('confusion_matrix_epochs_25_ratio_0.1.png', dpi=300, bbox_inches='tight')
+    plt.savefig(f'confusion_matrix_epochs_{num_epochs}_ratio_{sample_ratio}.png', dpi=300, bbox_inches='tight')
     plt.show()
     
     # 计算评估指标

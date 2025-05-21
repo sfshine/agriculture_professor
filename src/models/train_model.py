@@ -259,9 +259,11 @@ def main():
         # Evaluate the model on the validation set
         print("\nEvaluating model on validation set:")
         accuracy, true_labels, pred_labels = evaluate_model(
-            trained_model, 
-            dataloaders['val'], 
-            criterion
+            trained_model,
+            dataloaders['val'],
+            criterion,
+            num_epochs=num_epochs,
+            sample_ratio=sample_ratio
         )
         
         print(f"Final Validation Accuracy: {accuracy:.4f}")

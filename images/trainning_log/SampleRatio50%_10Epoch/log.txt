@@ -1,0 +1,161 @@
+(global_venv) (base) ➜  agriculture_professor git:(main) ✗ py src/models/train_model.py 
+^CTraceback (most recent call last):
+  File "/Users/gaoshuai/Desktop/AI 课程设- Agriculture Detection/Challenge 2018/agriculture_professor/src/models/train_model.py", line 18, in <module>
+    import torch
+  File "/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/torch/__init__.py", line 2240, in <module>
+    from torch import quantization as quantization  # usort: skip
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/torch/quantization/__init__.py", line 2, in <module>
+    from .fake_quantize import *  # noqa: F403
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/torch/quantization/fake_quantize.py", line 10, in <module>
+    from torch.ao.quantization.fake_quantize import (
+  File "/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/torch/ao/quantization/__init__.py", line 8, in <module>
+    from .fake_quantize import *  # noqa: F403
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/torch/ao/quantization/fake_quantize.py", line 10, in <module>
+    from torch.ao.quantization.observer import (
+  File "/Users/gaoshuai/python_envs/global_venv/lib/python3.12/site-packages/torch/ao/quantization/observer.py", line 1699, in <module>
+    @dataclass(frozen=True)
+     ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/dataclasses.py", line 1265, in wrap
+    return _process_class(cls, init, repr, eq, order, unsafe_hash,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/dataclasses.py", line 1063, in _process_class
+    _init_fn(all_init_fields,
+  File "/opt/anaconda3/lib/python3.12/dataclasses.py", line 619, in _init_fn
+    return _create_fn('__init__',
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/dataclasses.py", line 473, in _create_fn
+    exec(txt, globals, ns)
+  File "<string>", line 0, in <module>
+KeyboardInterrupt
+
+(global_venv) (base) ➜  agriculture_professor git:(main) ✗ py src/models/train_model.py
+Loading training dataset...
+Loaded 2151 images with valid labels from /Users/gaoshuai/Desktop/AI 课程设- Agriculture Detection/Challenge 2018/agriculture_professor/AgriculturalDisease_trainingset/train_list.txt
+Class distribution:
+Apple-Healthy: 592 images
+Apple-Frogeye Spot: 213 images
+Apple-Cedar Rust: 71 images
+Corn-Healthy: 188 images
+Corn-Rust: 177 images
+Corn-Leaf Spot: 240 images
+Grape-Healthy: 147 images
+Grape-Black Measles: 209 images
+Grape-Leaf Blight: 314 images
+Loading validation dataset...
+Loaded 616 images with valid labels from /Users/gaoshuai/Desktop/AI 课程设- Agriculture Detection/Challenge 2018/agriculture_professor/AgriculturalDisease_validationset/ttest_list.txt
+Class distribution:
+Apple-Healthy: 169 images
+Apple-Frogeye Spot: 61 images
+Apple-Cedar Rust: 20 images
+Corn-Healthy: 54 images
+Corn-Rust: 51 images
+Corn-Leaf Spot: 70 images
+Grape-Healthy: 42 images
+Grape-Black Measles: 59 images
+Grape-Leaf Blight: 90 images
+Training set size: 2151
+Validation set size: 616
+Training with 9 classes from LABEL_MAP
+Classes:
+  0: Apple-Healthy
+  3: Apple-Frogeye Spot
+  4: Apple-Cedar Rust
+  9: Corn-Healthy
+  13: Corn-Rust
+  15: Corn-Leaf Spot
+  17: Grape-Healthy
+  21: Grape-Black Measles
+  23: Grape-Leaf Blight
+Initializing model...
+Starting model training...
+Using device: cpu
+Epoch 1/10
+----------
+train Loss: 1.7952 Acc: 0.3696 Time: 424.11s
+val Loss: 1.3215 Acc: 0.7370 Time: 88.11s
+Epoch 1 completed in 512.26s
+
+Epoch 2/10
+----------
+train Loss: 1.0260 Acc: 0.7406 Time: 421.79s
+val Loss: 0.5638 Acc: 0.9205 Time: 88.90s
+Epoch 2 completed in 510.73s
+
+Epoch 3/10
+----------
+train Loss: 0.5509 Acc: 0.8735 Time: 423.42s
+val Loss: 0.2333 Acc: 0.9675 Time: 88.92s
+Epoch 3 completed in 512.46s
+
+Epoch 4/10
+----------
+train Loss: 0.3565 Acc: 0.9163 Time: 424.55s
+val Loss: 0.1235 Acc: 0.9854 Time: 89.27s
+Epoch 4 completed in 513.85s
+
+Epoch 5/10
+----------
+train Loss: 0.2380 Acc: 0.9428 Time: 425.68s
+val Loss: 0.0796 Acc: 0.9886 Time: 91.45s
+Epoch 5 completed in 517.16s
+
+Epoch 6/10
+----------
+train Loss: 0.2150 Acc: 0.9470 Time: 426.33s
+val Loss: 0.0609 Acc: 0.9903 Time: 89.44s
+Epoch 6 completed in 515.80s
+
+Epoch 7/10
+----------
+train Loss: 0.1676 Acc: 0.9572 Time: 426.05s
+val Loss: 0.0452 Acc: 0.9903 Time: 89.69s
+Epoch 7 completed in 515.74s
+
+Epoch 8/10
+----------
+train Loss: 0.1595 Acc: 0.9577 Time: 426.71s
+val Loss: 0.0452 Acc: 0.9903 Time: 89.59s
+Epoch 8 completed in 516.30s
+
+Epoch 9/10
+----------
+train Loss: 0.1634 Acc: 0.9544 Time: 426.93s
+val Loss: 0.0444 Acc: 0.9886 Time: 89.57s
+Epoch 9 completed in 516.49s
+
+Epoch 10/10
+----------
+train Loss: 0.1572 Acc: 0.9582 Time: 426.93s
+val Loss: 0.0498 Acc: 0.9951 Time: 89.73s
+Epoch 10 completed in 516.69s
+
+Training complete in 85m 47s
+Best val Acc: 0.9951
+2025-05-21 09:50:21.712 python3[3586:22481] +[IMKClient subclass]: chose IMKClient_Modern
+2025-05-21 09:50:21.712 python3[3586:22481] +[IMKInputSession subclass]: chose IMKInputSession_Modern
+Saving model...
+
+Evaluating model on validation set:
+Classification Report:
+                     precision    recall  f1-score    support
+Apple-Healthy         1.000000  1.000000  1.000000  169.00000
+Apple-Frogeye Spot    0.983871  1.000000  0.991870   61.00000
+Apple-Cedar Rust      1.000000  0.950000  0.974359   20.00000
+Corn-Healthy          1.000000  1.000000  1.000000   54.00000
+Corn-Rust             0.962264  1.000000  0.980769   51.00000
+Corn-Leaf Spot        1.000000  0.971429  0.985507   70.00000
+Grape-Healthy         1.000000  1.000000  1.000000   42.00000
+Grape-Black Measles   1.000000  1.000000  1.000000   59.00000
+Grape-Leaf Blight     1.000000  1.000000  1.000000   90.00000
+accuracy              0.995130  0.995130  0.995130    0.99513
+macro avg             0.994015  0.991270  0.992501  616.00000
+weighted avg          0.995279  0.995130  0.995123  616.00000
+Accuracy: 0.9951
+Precision: 0.9953
+Recall: 0.9951
+F1 Score: 0.9951
+Final Validation Accuracy: 0.9951
+(global_venv) (base) ➜  agriculture_professor git:(main) ✗ 

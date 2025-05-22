@@ -1,0 +1,130 @@
+(global_venv) (base) ➜  agriculture_professor git:(main) py src/demo/test_images.py
+(global_venv) (base) ➜  agriculture_professor git:(main) 
+(global_venv) (base) ➜  agriculture_professor git:(main) ✗ py src/models/train_model.py 
+Loading training dataset...
+Loaded 4307 images with valid labels from /Users/gaoshuai/Desktop/AI 课程设- Agriculture Detection/Challenge 2018/agriculture_professor/AgriculturalDisease_trainingset/train_list.txt
+Class distribution:
+Apple-Healthy: 1185 images
+Apple-Frogeye Spot: 427 images
+Apple-Cedar Rust: 142 images
+Corn-Healthy: 376 images
+Corn-Rust: 355 images
+Corn-Leaf Spot: 480 images
+Grape-Healthy: 294 images
+Grape-Black Measles: 419 images
+Grape-Leaf Blight: 629 images
+Loading validation dataset...
+Loaded 616 images with valid labels from /Users/gaoshuai/Desktop/AI 课程设- Agriculture Detection/Challenge 2018/agriculture_professor/AgriculturalDisease_validationset/ttest_list.txt
+Class distribution:
+Apple-Healthy: 169 images
+Apple-Frogeye Spot: 61 images
+Apple-Cedar Rust: 20 images
+Corn-Healthy: 54 images
+Corn-Rust: 51 images
+Corn-Leaf Spot: 70 images
+Grape-Healthy: 42 images
+Grape-Black Measles: 59 images
+Grape-Leaf Blight: 90 images
+Training set size: 4307
+Validation set size: 616
+Training with 9 classes from LABEL_MAP
+Classes:
+  0: Apple-Healthy
+  3: Apple-Frogeye Spot
+  4: Apple-Cedar Rust
+  9: Corn-Healthy
+  13: Corn-Rust
+  15: Corn-Leaf Spot
+  17: Grape-Healthy
+  21: Grape-Black Measles
+  23: Grape-Leaf Blight
+Initializing model...
+Starting model training...
+Using device: cpu
+Epoch 1/10
+----------
+train Loss: 1.4336 Acc: 0.5563 Time: 842.47s
+val Loss: 0.5274 Acc: 0.9367 Time: 89.81s
+Epoch 1 completed in 932.32s
+
+Epoch 2/10
+----------
+train Loss: 0.4362 Acc: 0.8983 Time: 842.70s
+val Loss: 0.1252 Acc: 0.9838 Time: 92.87s
+Epoch 2 completed in 935.61s
+
+Epoch 3/10
+----------
+train Loss: 0.2343 Acc: 0.9380 Time: 845.82s
+val Loss: 0.0601 Acc: 0.9886 Time: 90.03s
+Epoch 3 completed in 935.89s
+
+Epoch 4/10
+----------
+train Loss: 0.1631 Acc: 0.9531 Time: 846.46s
+val Loss: 0.0423 Acc: 0.9903 Time: 89.87s
+Epoch 4 completed in 936.38s
+
+Epoch 5/10
+----------
+train Loss: 0.1250 Acc: 0.9659 Time: 839.16s
+val Loss: 0.0303 Acc: 0.9903 Time: 89.21s
+Epoch 5 completed in 928.37s
+
+Epoch 6/10
+----------
+train Loss: 0.1224 Acc: 0.9645 Time: 841.69s
+val Loss: 0.0249 Acc: 0.9951 Time: 89.16s
+Epoch 6 completed in 930.89s
+
+Epoch 7/10
+----------
+train Loss: 0.1000 Acc: 0.9726 Time: 842.46s
+val Loss: 0.0202 Acc: 0.9935 Time: 89.17s
+Epoch 7 completed in 931.63s
+
+Epoch 8/10
+----------
+train Loss: 0.0962 Acc: 0.9707 Time: 839.97s
+val Loss: 0.0212 Acc: 0.9935 Time: 89.17s
+Epoch 8 completed in 929.14s
+
+Epoch 9/10
+----------
+train Loss: 0.0915 Acc: 0.9724 Time: 842.37s
+val Loss: 0.0194 Acc: 0.9935 Time: 89.41s
+Epoch 9 completed in 931.78s
+
+Epoch 10/10
+----------
+train Loss: 0.0906 Acc: 0.9731 Time: 839.33s
+val Loss: 0.0193 Acc: 0.9968 Time: 89.24s
+Epoch 10 completed in 928.62s
+
+Training complete in 155m 21s
+Best val Acc: 0.9968
+2025-05-22 01:55:16.507 python3[25094:422650] +[IMKClient subclass]: chose IMKClient_Modern
+2025-05-22 01:55:16.508 python3[25094:422650] +[IMKInputSession subclass]: chose IMKInputSession_Modern
+Saving model...
+
+Evaluating model on validation set:
+Classification Report:
+                     precision    recall  f1-score     support
+Apple-Healthy         1.000000  1.000000  1.000000  169.000000
+Apple-Frogeye Spot    1.000000  1.000000  1.000000   61.000000
+Apple-Cedar Rust      1.000000  1.000000  1.000000   20.000000
+Corn-Healthy          1.000000  1.000000  1.000000   54.000000
+Corn-Rust             0.962264  1.000000  0.980769   51.000000
+Corn-Leaf Spot        1.000000  0.971429  0.985507   70.000000
+Grape-Healthy         1.000000  1.000000  1.000000   42.000000
+Grape-Black Measles   1.000000  1.000000  1.000000   59.000000
+Grape-Leaf Blight     1.000000  1.000000  1.000000   90.000000
+accuracy              0.996753  0.996753  0.996753    0.996753
+macro avg             0.995807  0.996825  0.996253  616.000000
+weighted avg          0.996876  0.996753  0.996761  616.000000
+Accuracy: 0.9968
+Precision: 0.9969
+Recall: 0.9968
+F1 Score: 0.9968
+Final Validation Accuracy: 0.9968
+(global_venv) (base) ➜  agriculture_professor git:(main) ✗ 

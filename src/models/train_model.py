@@ -6,7 +6,7 @@ base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 sys.path.append(base_dir)
 
 # Configuration parameters
-num_epochs = 10
+num_epochs = 4
 sample_ratio = 1
 
 import numpy as np

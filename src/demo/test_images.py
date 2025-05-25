@@ -5,6 +5,8 @@ from PIL import Image
 import torch
 from torchvision import models, transforms
 import torch.nn as nn
+import requests
+import json
 
 # 添加项目根目录到Python路径
 base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -120,6 +122,32 @@ def main():
                 print("Top 3 预测:")
                 for j in range(len(top_readable)):
                     print(f"  {j+1}. {top_readable[j]} - 置信度: {top_confidences[j]:.4f}")
+                
+                # Call API with prediction results
+                try:
+                    # Extract plant and disease from the readable label
+                    label_parts = predicted_label_name.split('-')
+                    if len(label_parts) == 2:
+                        plant, disease = label_parts
+                        payload = {
+                            "plant": plant,
+                            "disease": disease
+                        }
+                        api_url = "http://4zv48122tf42.vicp.fun/api/qa"
+                        headers = {'Content-Type': 'application/json'}
+                        response = requests.post(api_url, data=json.dumps(payload), headers=headers)
+                        
+                        if response.status_code == 200:
+                            api_data = response.json()
+                            print("\n=== Disease Information and Treatment ===")
+                            print(api_data.get('answer', 'No detailed information available.'))
+                            print("=====================================\n")
+                        else:
+                            print(f"\nAPI call failed with status code: {response.status_code}")
+                    else:
+                        print("\nCould not parse plant and disease from prediction label.")
+                except Exception as api_error:
+                    print(f"\nError calling API: {str(api_error)}")
                     
             except Exception as e:
                 print(f"处理图片 {img_path} 时出错: {str(e)}")
